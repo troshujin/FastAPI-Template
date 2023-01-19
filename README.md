@@ -1,6 +1,6 @@
 # FastAPI Template by TijmenSimons
 
-:D
+A layered architecture created my [@TijmenSimons](https://github.com/TijmenSimons/) and [@Tientjie-san](https://github.com/tientjie-san/).
 
 ## Setup the project
 
