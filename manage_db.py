@@ -25,9 +25,6 @@ def seed_db() -> None:
     with Session() as session:
 
         try:
-
-            # NOTE: DEFAULT USERS
-            # if os.getenv("environment") == "Production":
             user_admin = crud.UserCRUD(session).create_user(
                 mo.User(username="admin")
             )

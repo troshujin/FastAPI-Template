@@ -19,7 +19,6 @@ from sqlalchemy.orm import declarative_base, relationship, backref
 import uuid
 
 
-# declarative base class
 Base = declarative_base()
 
 
