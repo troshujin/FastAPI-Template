@@ -2,6 +2,12 @@
 
 A layered architecture created my [@TijmenSimons](https://github.com/TijmenSimons/) and [@Tientjie-san](https://github.com/tientjie-san/).
 
+## Requirments
+
+Have [PostgreSQL](https://www.postgresql.org/download/) installed.
+
+Have [Python](https://www.python.org/downloads/) version 3+ isntalled.
+
 ## Setup the project
 
 `virtualenv env`
