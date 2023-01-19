@@ -27,3 +27,9 @@
 `delete` deletes all tables
 
 `reset` delete + init
+
+## Run tests
+
+`python test_main.py`
+
+To see prints do: `python test_main.py stdout`
