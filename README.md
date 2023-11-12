@@ -1,41 +1,58 @@
 # FastAPI Template by TijmenSimons
 
-A layered architecture created my [@TijmenSimons](https://github.com/TijmenSimons/) and [@Tientjie-san](https://github.com/tientjie-san/).
+A layered architecture created my [@TijmenSimons](https://github.com/TijmenSimons/), [@Tientjie-san](https://github.com/tientjie-san/) and [@IverDeViking](https://github.com/ivardeviking).
 
-## Requirments
+## About
 
-Have [PostgreSQL](https://www.postgresql.org/download/) installed.
+This project uses the mysql database. For personalization, you can change the database in the `docker-compose.yml` and the `core\config.py`.
 
-Have [Python](https://www.python.org/downloads/) version 3+ isntalled.
+### Run in docker
 
-## Setup the project
+Create an `.env` file. Include the values found in the `env.example` files.
 
-`virtualenv env`
+To run the project:
+```cmd
+docker compose up --build
+```
 
-`env/scripts/activate`
+### Run locally
 
-`pip install -r requirements.txt`
+Create an `.env` file. Include the values found in the `env.example` files.
 
-## Run the project
+First setup the environment
 
-`uvicorn main:app --host 0.0.0.0 --port 8000 --reload`
+```cmd
+python -m virtualenv venv
 
-## Manage database
+.\venv\Scripts\activate
+```
 
-`python manage_db.py` has possible 3 arguments:
+Then install the requirements.
 
-- `init`
-- `delete`
-- `reset`
+```cmd
+pip install -r ./requirements.txt
+```
 
-`init` creates all tables, if they do not exist and seeds the database
+To run the project:
 
-`delete` deletes all tables
+```cmd
+python main.py
+```
 
-`reset` delete + init
+Add the `--env : ["local", "dev", "prod"]` flag for other configs. `local` is the default.
 
-## Run tests
+### Access
 
-`python test_main.py`
+You can now access the application on [http://localhost:8002/api/latest/docs](http://localhost:8002/api/latest/docs).
 
-To see prints do: `python test_main.py stdout`
+If you're still using mysql, manage the database on [http://localhost:8081/](http://localhost:8081/) and log in with what you set the password to.
+
+### Run tests
+
+```cmd
+pytest
+```
+
+## Additional information
+
+For database migrations we use [alembic](https://alembic.sqlalchemy.org/en/latest/).

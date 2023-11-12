@@ -1,29 +1,56 @@
-from dotenv import load_dotenv
-load_dotenv()
+"""
+Boot up the application with extra settings
 
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi import FastAPI
-from routes.api import router as api_router
-import sys
+Usage:
+    python main.py
 
-# Find out where prints are coming from
-# sys.stdout = ""
+Options:
+    --env : ["local", "dev", "prod"]
+    --debug : bool
+"""
 
-# Turn off all prints
-# sys.stdout = None
+import os
+import click
+
+import uvicorn
+
+from core.config import config
 
 
-app = FastAPI()
-
-origins = ["http://localhost:8000"]
-
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+@click.command()
+@click.option(
+    "--env",
+    type=click.Choice(["local", "dev", "prod"], case_sensitive=False),
+    default="local",
 )
+@click.option(
+    "--debug",
+    type=click.BOOL,
+    is_flag=True,
+    default=False,
+)
+def main(env: str = None, debug: bool = None):
+    """
+    Boot up the application.
 
-app.include_router(api_router)
+    Args:
+        env (str): The environment to run the application in, can be one of "local", 
+        "dev", or "prod".
+        debug (bool): Whether or not to run the application in debug mode.
+
+    Returns:
+        None
+    """
+    os.environ["ENV"] = env
+    os.environ["DEBUG"] = str(debug)
+    uvicorn.run(
+        app="app.server:app",
+        host=config.APP_HOST,
+        port=config.APP_PORT,
+        reload=config.ENV != "production",
+        workers=1,
+    )
+
+
+if __name__ == "__main__":
+    main()
