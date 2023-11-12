@@ -32,10 +32,3 @@ async def login(schema: LoginSchema, session: Session = Depends(get_db)):
 @version(1)
 async def refresh(schema: RefreshTokenSchema, session: Session = Depends(get_db)):
     return await AuthService(session).refresh(schema)
-# This is the future code in wich we send the refresh token as a cookie, but due to certain circumstances 
-# we will send the refresh tokens in the body
-# @version(1) 
-# async def refresh(response: Response, schema: RefreshTokenSchema, session: Session = Depends(get_db)):
-#     refresh_token = await AuthService(session).refresh(schema)
-#     response.set_cookie(key='refresh_token', value={refresh_token}, httponly=True)
-#     return True

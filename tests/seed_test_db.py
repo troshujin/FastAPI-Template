@@ -14,10 +14,11 @@ def seed_db():
 
     with Session() as session:
         # Add your things here
+        admin_pass = get_password_hash("admin")
 
         admin_user = User(
             username="admin",
-            password=get_password_hash("admin"),
+            password=admin_pass,
             is_admin=True,
         )
 

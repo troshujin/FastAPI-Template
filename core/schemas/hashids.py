@@ -46,10 +46,6 @@ class DehashId(str):
     @classmethod
     def validate(cls, value, schema):
         if not isinstance(value, str):
-            try: 
-                int(value)
-                return value
-            except (ValueError, TypeError):
-                raise TypeError('hash required')
+            raise TypeError('hash required')
         
         return decode_single(value)

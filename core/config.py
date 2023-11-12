@@ -52,7 +52,7 @@ class DevelopmentConfig(Config):
 
 
 class TestConfig(Config):
-    DB_URL: str = "sqlite:///./test.db"
+    DB_URL: str = "sqlite:///test.db"
 
 
 def get_config() -> Config:
@@ -63,6 +63,5 @@ def get_config() -> Config:
         "test": TestConfig(),
     }
     return config_type[env]
-
 
 config: Config = get_config()

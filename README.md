@@ -49,8 +49,15 @@ If you're still using mysql, manage the database on [http://localhost:8081/](htt
 
 ### Run tests
 
+Unit + Coverage test
+
 ```cmd
-pytest
+pytest --cov=api --cov=app --cov=core --cov-report=html --cov-fail-under=85
+```
+
+Linting test:
+```cmd
+python linting.py app
 ```
 
 ## Additional information
