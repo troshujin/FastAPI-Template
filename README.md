@@ -1,12 +1,12 @@
 # FastAPI Template by TijmenSimons
 
-A layered architecture created my [@TijmenSimons](https://github.com/TijmenSimons/), [@Tientjie-san](https://github.com/tientjie-san/) and [@IverDeViking](https://github.com/ivardeviking).
+A layered architecture created my [@TijmenSimons](https://github.com/TijmenSimons/), [@Tientjie-san](https://github.com/tientjie-san/) and [@IvarDeViking](https://github.com/ivardeviking).
 
 ## About
 
 This project uses the mysql database. For personalization, you can change the database in the `docker-compose.yml` and the `core\config.py`.
 
-### Run in docker
+## Run in docker
 
 Create an `.env` file. Include the values found in the `env.example` files.
 
@@ -15,7 +15,7 @@ To run the project:
 docker compose up --build
 ```
 
-### Run locally
+## Run locally
 
 Create an `.env` file. Include the values found in the `env.example` files.
 
@@ -53,11 +53,6 @@ Unit + Coverage test
 
 ```cmd
 pytest --cov=api --cov=app --cov=core --cov-report=html --cov-fail-under=85
-```
-
-Linting test:
-```cmd
-python linting.py app
 ```
 
 ## Additional information
