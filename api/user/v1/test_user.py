@@ -1,8 +1,8 @@
-# pylint: skip-file
-
 import pytest
 from httpx import AsyncClient
 from fastapi import Response
+
+from core.helpers.hashids import encode
 
 
 @pytest.mark.asyncio
@@ -25,6 +25,15 @@ async def test_get_users_as_user(client: AsyncClient, normal_user_token_headers:
 async def test_get_users_as_none(client: AsyncClient):
     res = await client.get("/api/v1/users")
     assert res.status_code == 401
+
+
+@pytest.mark.asyncio
+async def test_get_user(client: AsyncClient, admin_token_headers: dict[str, str]):
+    admin_headers = await admin_token_headers
+    
+    user_id = encode(100000)
+    res = await client.get(f"/api/v1/users/{user_id}", headers=admin_headers)
+    assert res.status_code == 404
 
 
 @pytest.mark.asyncio
@@ -91,6 +100,10 @@ async def test_update_user_as_admin_on_other(client: AsyncClient, admin_token_he
     res = await client.patch(f"/api/v1/users/{user_id}", headers=admin_headers, json={"username": "normal_user", "password": "normal_user"})
     assert res.status_code == 200
 
+    user_id = encode(100000)
+    res = await client.patch(f"/api/v1/users/{user_id}", headers=admin_headers, json={"username": "normal_user_3", "password": "normal_user_3"})
+    assert res.status_code == 404
+
 
 @pytest.mark.asyncio
 async def test_delete_user_as_normal_on_self(client: AsyncClient, users: list[dict]):
@@ -141,3 +154,33 @@ async def test_delete_user_as_admin_on_other(client: AsyncClient, admin_token_he
 
     res = await client.delete(f"/api/v1/users/{user_id}", headers=admin_headers)
     assert res.status_code == 204
+
+    res = await client.delete(f"/api/v1/users/{user_id}", headers=admin_headers)
+    assert res.status_code == 404
+
+
+@pytest.mark.asyncio
+async def test_path_user_id(client: AsyncClient, admin_token_headers):
+    admin_headers = await admin_token_headers
+    
+    res = await client.get("/api/v1/users", headers=admin_headers)
+    users = res.json()
+    user_id = users[1]["id"]
+
+    res = await client.get(f"/api/v1/users/{user_id}", headers=admin_headers)
+    assert res.status_code == 200
+
+    res = await client.get("/api/v1/users/", headers=admin_headers)
+    assert res.status_code == 307
+
+    res = await client.get("/api/v1/users/_", headers=admin_headers)
+    assert res.status_code == 400
+
+
+@pytest.mark.asyncio
+async def test_bad_hash_id(client: AsyncClient, admin_token_headers: dict[str, str]):
+    admin_headers = await admin_token_headers
+
+    response = await client.get("/api/v1/users/abc", headers=admin_headers)
+
+    assert response.status_code == 400

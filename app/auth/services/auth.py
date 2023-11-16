@@ -4,8 +4,7 @@ from app.auth.schemas.jwt import RefreshTokenSchema, TokensSchema
 from app.auth.schemas.auth import LoginSchema
 from app.auth.services.jwt import JwtService
 from app.auth.services.utils import verify_password
-from app.auth.exceptions.auth import IncorrectPasswordException
-from app.user.exceptions.user import UserNotFoundException
+from app.auth.exceptions.auth import BadCredentialsException
 from app.user.services.user import UserService
 from core.helpers.hashids import encode
 
@@ -54,9 +53,9 @@ class AuthService:
         """
         user = await self.user_serv.get_by_username(schema.username)
         if not user:
-            raise UserNotFoundException()
+            raise BadCredentialsException()
         if not verify_password(schema.password, user.password):
-            raise IncorrectPasswordException()
+            raise BadCredentialsException()
         
         user_id = encode(user.id)
 

@@ -21,21 +21,9 @@ class TokenChecker:
 
     def __repr__(self):
         output = []
-        for i in self.tree:
-            output.append(f"'{i}': {self.tree[i]}")
+        for key, value in self.tree.items():
+            output.append(f"'{key}': {value}")
         return "\n".join(output)
-
-    def find(self, id: str) -> bool:
-        """
-        Check if a given token ID exists in the token tree.
-
-        Args:
-            id (str): The token ID to check.
-
-        Returns:
-            bool: True if the ID exists in the tree, False otherwise.
-        """
-        return self._get(id) is not None
 
     def generate_add(self, prev_id: str = None) -> str:
         """

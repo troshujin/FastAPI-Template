@@ -17,9 +17,6 @@ from core.helpers.hashids import decode_single
 
 def get_user_id_from_path(request):
     hashed_id = request.path_params.get("user_id")
-    if not hashed_id:
-        return None
-
     return decode_single(hashed_id)
 
 
@@ -28,7 +25,7 @@ class BasePermission(ABC):
 
     @abstractmethod
     async def has_permission(self, request: Request, session: Session) -> bool:
-        del request, session
+        ...
 
 
 class IsAuthenticated(BasePermission):
@@ -45,9 +42,6 @@ class IsUserOwner(BasePermission):
         del session
         
         user_id = get_user_id_from_path(request)
-
-        if not user_id:
-            return False
 
         if user_id != request.user.id:
             return False

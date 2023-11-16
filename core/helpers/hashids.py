@@ -34,22 +34,3 @@ def decode_single(hashed_ids) -> int:
         raise IncorrectHashIDException
 
     return real_ids[0]
-
-
-def check_id(hashed_id, func):
-    """Check if the id returns a value from the provided function"""
-    real_id = decode_single(hashed_id)
-    obj = func(real_id)
-
-    return obj
-
-
-def try_decode(some_id):
-    """Try and decode and id, which might be hashed"""
-
-    try:
-        some_id = int(some_id)
-    except ValueError:
-        some_id = decode_single(some_id)
-
-    return some_id

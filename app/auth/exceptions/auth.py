@@ -1,7 +1,7 @@
 from core.exceptions.base import CustomException
 
 
-class IncorrectPasswordException(CustomException):
-    status_code = 400
-    error_code = "AUTH__INCORRECT_PASSWORD"
+class BadCredentialsException(CustomException):
+    status_code = 401
+    error_code = "AUTH__BAD_CREDENTIALS"
     message = "credentials were incorrect"

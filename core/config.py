@@ -3,8 +3,7 @@ import os
 from dotenv import load_dotenv
 
 
-if os.getenv("DB_USER") is None:
-    load_dotenv()
+load_dotenv()
 
 
 class Config:
@@ -14,7 +13,7 @@ class Config:
     ENV: str = "development"
     DEBUG: bool = True
     APP_HOST: str = "0.0.0.0"
-    APP_PORT: int = 8002
+    APP_PORT: int = 8001
 
     _db_dialect_and_driver = "mysql+mysqldb"
     DB_URL: str = "{}://{}:{}@{}:{}/{}".format(

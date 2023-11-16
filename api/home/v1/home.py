@@ -9,7 +9,7 @@ home_v1_router = APIRouter()
 
 
 @home_v1_router.get(
-    "",
+    "/health",
     dependencies=[Depends(PermissionDependency([[AllowAll]]))],
 )
 @version(1)
