@@ -8,7 +8,7 @@ This project uses the mysql database. For personalization, you can change the da
 
 ## Run in docker
 
-Create an `.env` file. Include the values found in the `env.example` files.
+Create an `.env` file in the root folder. Include the values found in the `env.example` files.
 
 To run the project:
 ```cmd
@@ -17,7 +17,7 @@ docker compose up --build
 
 ## Run locally
 
-Create an `.env` file. Include the values found in the `env.example` files.
+Create an `.env` file in the root folder. Include the values found in the `env.example` files.
 
 First setup the environment
 
