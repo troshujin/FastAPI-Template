@@ -41,7 +41,7 @@ python main.py
 
 Add the `--env : ["local", "dev", "prod"]` flag for other configs. `local` is the default.
 
-### Access
+## Access
 
 You can now access the application on [http://localhost:8002/api/latest/docs](http://localhost:8002/api/latest/docs).
 
