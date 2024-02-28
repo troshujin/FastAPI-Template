@@ -36,7 +36,7 @@ class Config:
 
 
 class LocalConfig(Config):
-    ...
+    DB_URL: str = "sqlite:///db.db"
 
 
 class DevelopmentConfig(Config):
@@ -61,6 +61,7 @@ def get_config() -> Config:
         "local": LocalConfig(),
         "test": TestConfig(),
     }
+    print(config_type[env])
     return config_type[env]
 
 config: Config = get_config()

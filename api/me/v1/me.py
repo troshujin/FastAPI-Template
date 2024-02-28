@@ -1,3 +1,4 @@
+from app.permission import IsAdmin, IsAuthenticated
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
@@ -5,11 +6,7 @@ from app.user.dependencies.user import get_current_user
 from app.user.services.user import UserService
 from app.user.schemas.user import UpdateUserSchema, UserSchema
 from core.fastapi.dependencies.database import get_db
-from core.fastapi.dependencies.permission import (
-    IsAdmin,
-    IsAuthenticated,
-    PermissionDependency,
-)
+from core.fastapi.dependencies.permission import OR, PermissionDependency
 from core.versioning import version
 
 
@@ -19,7 +16,7 @@ me_v1_router = APIRouter()
 @me_v1_router.get(
     "",
     response_model=UserSchema,
-    dependencies=[Depends(PermissionDependency([[IsAdmin], [IsAuthenticated]]))],
+    dependencies=[Depends(PermissionDependency([IsAdmin, OR, IsAuthenticated]))],
 )
 @version(1)
 async def get_me(
@@ -32,7 +29,7 @@ async def get_me(
 @me_v1_router.patch(
     "",
     response_model=UserSchema,
-    dependencies=[Depends(PermissionDependency([[IsAdmin], [IsAuthenticated]]))],
+    dependencies=[Depends(PermissionDependency([IsAdmin, OR, IsAuthenticated]))],
 )
 @version(1)
 async def update_me(
@@ -46,7 +43,7 @@ async def update_me(
 @me_v1_router.delete(
     "",
     status_code=204,
-    dependencies=[Depends(PermissionDependency([[IsAdmin], [IsAuthenticated]]))],
+    dependencies=[Depends(PermissionDependency([IsAdmin, OR, IsAuthenticated]))],
 )
 @version(1)
 async def delete_me(
